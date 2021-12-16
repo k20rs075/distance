@@ -10,6 +10,7 @@
 
 
     <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <script src="keys.js"></script>
     <script src="leaflet/leaflet.js"></script>
    <script> 
         /*
@@ -60,8 +61,8 @@
         }
 
         function btnBClick(e){
-            lat2 = 33.6705338;
-            lon2 = 130.4424685;
+            lat2 = 33.6764639;
+            lon2 = 130.4305623;
             marker.setLatLng([lat2, lon2]);
             map.panTo([lat2, lon2]);
             $("#data").html(lat2 + "<br>" + lon2);
@@ -71,7 +72,7 @@
             d=Math.floor(d);
             Math.floor(d);
 
-            $("#data").html("九州産業大学まで" + d + "km");
+            $("#data").html("現在地から自宅まで" + d + "km");
         }
 
         function onSuccess(pos){
