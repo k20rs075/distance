@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <script src="leaflet/leaflet.js"></script>
+   <script> 
+        /*
+        Cor9 newLeaf Geo    ビルドでも動いた！
+        */
+        function dist(sx,sy,ex,ey) {
+            return Math.sqrt((ex-sx)*(ex-sx)+(ey-sy)*(ey-sy));
+        }
+        function init() {
+            $('#btnA').on("click",function(e) {
+                btnAClick(e);
+            });
+
+            $('#btnB').on("click",function(e) {
+                btnBClick(e);
+            });
+
+            map = L.map('map').setView([33.67038, 130.44619], 15);
+
+            var tiles = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                maxZoom: 15,
+                attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+            });
+
+            map.addLayer(tiles);
+            marker = L.marker([0,0]).addTo(map);
+            marker2 = L.marker([0,0]).addTo(map);
+
+        }
+        // これより上は編集しなくてよい。
+	// 変数宣言
+        var map;
+        var marker;
+        var marker2;
+
+        var lat;
+        var lon;
+
+        var lat2;
+        var lon2;
+
+        var d;
+
+
+        function btnAClick(e){
+            navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+        }
+
+        function btnBClick(e){
+            lat2 = 33.6705338;
+            lon2 = 130.4424685;
+            marker.setLatLng([lat2, lon2]);
+            map.panTo([lat2, lon2]);
+            $("#data").html(lat2 + "<br>" + lon2);
+
+            d=6371*Math.acos(Math.cos(lat*(Math.PI/180))*Math.cos(lat2*(Math.PI/180))*Math.cos(lon2*(Math.PI/180)-lon*(Math.PI/180))+Math.sin(lat*(Math.PI/180))*Math.sin(lat2*(Math.PI/180)));
+            
+            d=Math.floor(d);
+            Math.floor(d);
+
+            $("#data").html("九州産業大学まで" + d + "km");
+        }
+
+        function onSuccess(pos){
+            lat = pos.coords.latitude;
+            lon = pos.coords.longitude;
+            marker.setLatLng([lat, lon]);
+            map.panTo([lat, lon]);
+            $("#data").html(lat + "<br>" + lon);
+            
+        }
+
+        function onError(e){
+            $("#data").html("error: " + e.name + ":" + e.message);
+        }
+
+
+    </script>
+
+
+</head>
+<body onload="init();">
+    <div id="map"> </div>
+    <div id="data">Data</div>
+    <button id="btnA">現在地</button>  
+    <button id="btnB">距離測定</button>  
+
+</body>
+</html>
