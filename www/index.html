@@ -77,9 +77,7 @@
 
       $("#data").html("現在地から自宅まで" + d + "km");
 
-      var testClass = new TestClass();
-      testClass.set("kyori", d);
-      testClass.save();
+     
     }
 
     function onSuccess(pos) {
@@ -88,8 +86,9 @@
       marker.setLatLng([lat, lon]);
       map.panTo([lat, lon]);
       $("#data").html(lat + "<br>" + lon);
-    
+
       var testClass = new TestClass();
+      testClass.set("kyori", d);
       testClass.set("ido", lat);
       testClass.set("keido", lon);
       testClass.save();
