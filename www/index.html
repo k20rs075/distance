@@ -64,8 +64,8 @@
     }
 
     function btnBClick(e) {
-      lat2 = 33.6764639;
-      lon2 = 130.4305623;
+      lat2 = 32.7757362;
+      lon2 = 129.853533;
       marker.setLatLng([lat2, lon2]);
       map.panTo([lat2, lon2]);
       $("#data").html(lat2 + "<br>" + lon2);
@@ -74,10 +74,9 @@
 
       d = Math.floor(d);
       Math.floor(d);
+      var time = d / 50 * 60;
 
-      $("#data").html("現在地から自宅まで" + d + "km");
-
-     
+      $("#data").html("現在地から自宅まで" + d + "km" + "<br>" + "予想到達時間は" + time + "分です。");
     }
 
     function onSuccess(pos) {
