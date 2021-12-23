@@ -15,8 +15,7 @@
   <script src="leaflet/leaflet.js"></script>
   <script>
     var ncmb = new NCMB(appKey, clientKey);
-    var TestClass = ncmb.DataStore("distance");
-
+    var TestClass = ncmb.DataStore("nowlocation");
 
     /*
     Cor9 newLeaf Geo    ビルドでも動いた！
@@ -62,7 +61,6 @@
 
     function btnAClick(e) {
       navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
     }
 
     function btnBClick(e) {
@@ -90,7 +88,11 @@
       marker.setLatLng([lat, lon]);
       map.panTo([lat, lon]);
       $("#data").html(lat + "<br>" + lon);
-
+    
+      var testClass = new TestClass();
+      testClass.set("ido", lat);
+      testClass.set("keido", lon);
+      testClass.save();
     }
 
     function onError(e) {
